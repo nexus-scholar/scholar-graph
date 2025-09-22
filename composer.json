@@ -1,11 +1,8 @@
 {
-    "name": "mbsoft31/scholar-graph",
-    "description": "transform OpenAlex data into a knowledge graph",
-    "keywords": [
-        "Mbsoft",
-        "laravel",
-        "scholar-graph"
-    ],
+    "name": "nexus/scholar-graph",
+    "description": "Advanced Laravel package for building, analyzing, and visualizing scholarly graphs with OpenAlex integration, async processing, and temporal analysis.",
+    "type": "library",
+    "keywords": ["laravel", "academic", "graph", "citations", "openalex", "scholarly", "network-analysis"],
     "homepage": "https://github.com/mbsoft31/scholar-graph",
     "license": "MIT",
     "authors": [
@@ -18,7 +15,14 @@
     "require": {
         "php": "^8.4",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^11.0||^12.0"
+        "illuminate/contracts": "^11.0||^12.0",
+        "illuminate/support": "^10.0|^11.0",
+        "illuminate/queue": "^10.0|^11.0",
+        "illuminate/database": "^10.0|^11.0",
+        "illuminate/events": "^10.0|^11.0",
+        "illuminate/http": "^10.0|^11.0",
+        "psr/simple-cache": "^3.0",
+        "psr/log": "^3.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -30,8 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mbsoft\\ScholarGraph\\": "src/",
-            "Mbsoft\\ScholarGraph\\Database\\Factories\\": "database/factories/"
+            "Mbsoft\\ScholarGraph\\": "src/"
         }
     },
     "autoload-dev": {
