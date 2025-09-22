@@ -24,11 +24,6 @@ class GraphBuilder
         $this->graph = new Graph();
     }
 
-    public function getGraph(): Graph
-    {
-        return $this->graph;
-    }
-
     // Static factory methods
     public static function fromWork(string $workId): self
     {
@@ -118,11 +113,12 @@ class GraphBuilder
     // Discovery methods
     public function findSimilar(string $method = 'cocitation', int $limit = 50): self
     {
-        if ($this->useAsync && $this->shouldProcessAsync()) {
-            return $this->queueOperation('findSimilar', [$method, $limit]);
-        }
-
-        return $this->executeOperation('findSimilar', [$method, $limit]);
+        $key = Keys::expandKey($this->graph, $method, $limit);
+        $this->graph = $this->cache->remember($key, function () use ($method, $limit) {
+            $this->discovery->findSimilar($this->graph, $method, $limit);
+            return $this->graph;
+        });
+        return $this;
     }
 
     public function expandByAuthors(int $limit = 20): self
@@ -141,24 +137,29 @@ class GraphBuilder
     }
 
     // Algorithm methods
+    /** Run centrality and attach metrics to nodes */
     public function calculateCentrality(string $name = 'pagerank'): self
     {
-        if ($this->useAsync && $this->shouldProcessAsync()) {
-            return $this->queueOperation('calculateCentrality', [$name]);
-        }
-
-        return $this->executeOperation('calculateCentrality', [$name]);
+        $key = Keys::algoKey($this->graph, $name);
+        $this->graph = $this->cache->remember($key, function () use ($name) {
+            $this->analyzer->applyCentrality($this->graph, $name);
+            return $this->graph;
+        });
+        return $this;
     }
 
+    /** Run community detection and attach labels */
     public function detectCommunities(string $name = 'louvain'): self
     {
-        if ($this->useAsync && $this->shouldProcessAsync()) {
-            return $this->queueOperation('detectCommunities', [$name]);
-        }
-
-        return $this->executeOperation('detectCommunities', [$name]);
+        $key = Keys::algoKey($this->graph, $name);
+        $this->graph = $this->cache->remember($key, function () use ($name) {
+            $this->analyzer->applyCommunities($this->graph, $name);
+            return $this->graph;
+        });
+        return $this;
     }
 
+    /** Calculate all common centrality metrics */
     public function calculateAllCentralities(): self
     {
         return $this
@@ -302,5 +303,11 @@ class GraphBuilder
             ->take($top)
             ->keys()
             ->toArray();
+    }
+
+    /** Expose the underlying graph (optional helper for tests) */
+    public function getGraph(): Graph
+    {
+        return $this->graph;
     }
 }
