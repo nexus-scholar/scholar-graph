@@ -1,19 +1,26 @@
-# transform OpenAlex data into a knowledge graph
+# Scholar Graph
+
+> **Status:** Legacy PHP scholarly-graph prototype.
+>
+> This repository is kept as predecessor work for the Nexus Scholar citation-network tooling line. It explored transforming OpenAlex-style scholarly metadata into graph structures for analysis, ranking, and visualization. Current graph package work is split into [`nexus-scholar/graph-core`](https://github.com/nexus-scholar/graph-core) for graph data structures and [`nexus-scholar/graph-algorithms`](https://github.com/nexus-scholar/graph-algorithms) for algorithms such as centrality and traversal.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mbsoft31/scholar-graph.svg?style=flat-square)](https://packagist.org/packages/mbsoft31/scholar-graph)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mbsoft31/scholar-graph/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mbsoft31/scholar-graph/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mbsoft31/scholar-graph/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mbsoft31/scholar-graph/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mbsoft31/scholar-graph.svg?style=flat-square)](https://packagist.org/packages/mbsoft31/scholar-graph)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+## What This Repo Represents
 
-## Support us
+`scholar-graph` was an early Laravel/PHP package experiment for academic knowledge graphs. The public value is not that this is the current production package; it is evidence of the research-tooling path that led to the cleaner Nexus Scholar graph packages.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/scholar-graph.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/scholar-graph)
+The package direction includes:
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+- representing scholarly records as graph entities;
+- connecting provider metadata to graph structures;
+- exploring citation-network and bibliographic-relationship workflows;
+- preparing graph data for ranking, traversal, and export.
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Use this repository as historical context. For current work, prefer the newer Nexus Scholar graph packages linked above.
 
 ## Installation
 
